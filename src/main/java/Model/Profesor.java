@@ -5,7 +5,7 @@ public class Profesor {
     private String nombre;
     private String documentoDeIdentidad;
     private String telefono;
-    private String idiomaQueEnsenia;
+    private Idioma idiomaQueEnsenia;
     private double tarifaPorSesion;
 
 
@@ -24,7 +24,7 @@ public class Profesor {
         private String nombre;
         private String documentoDeIdentidad;
         private String telefono;
-        private String idiomaQueEnsenia;
+        private Idioma idiomaQueEnsenia;
         private double tarifaPorSesion;
 
         public Builder nombre(String nombre) {
@@ -42,7 +42,7 @@ public class Profesor {
             return this;
         }
 
-        public Builder idiomaQueEnsenia(String idiomaQueEnsenia) {
+        public Builder idiomaQueEnsenia(Idioma idiomaQueEnsenia) {
             this.idiomaQueEnsenia = idiomaQueEnsenia;
             return this;
         }
@@ -82,7 +82,7 @@ public class Profesor {
         return telefono;
     }
 
-    public String getIdiomaQueEnsenia() {
+    public Idioma getIdiomaQueEnsenia() {
         return idiomaQueEnsenia;
     }
 
