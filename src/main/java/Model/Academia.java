@@ -280,6 +280,28 @@ public class Academia {
     }
 
 
+    /**
+     * Metodo para eliminar estudiante
+     *
+     * @param documento
+     * @return
+     */
+    public boolean eliminarProfesor(String documento){
+        boolean bandera = false;
+                for(Profesor prof : listProfesores){
+            if(prof.getDocumentoDeIdentidad().equals(documento)){
+                JOptionPane.showMessageDialog(null,"Se eliminó a " + prof.getNombre() +" de la basé de datos");
+                listProfesores.remove(prof);
+                bandera =true;
+
+            }
+        }
+
+        return  bandera;
+
+    }
+
+
 
 
 
