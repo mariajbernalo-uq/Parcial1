@@ -7,6 +7,10 @@ import java.util.List;
 
 public class Academia {
 
+
+
+
+
     private String nombre;
     private String nit;
     private String telefono;
@@ -15,7 +19,7 @@ public class Academia {
     private List<Estudiante> listEstudiantes;
     private List<Matricula> listMatriculas;
 
-    public Academia(String nombre, String nit, String telefono){
+    private Academia(String nombre, String nit, String telefono){
         this.nombre = nombre;
         this.nit = nit;
         this.telefono =telefono;
@@ -24,6 +28,17 @@ public class Academia {
         listEstudiantes = new ArrayList<>();
         listMatriculas = new ArrayList<>();
 
+    }
+// Patron singleton
+
+    private static Academia instancia;
+
+    public static  Academia getInstance(String nombre, String nit, String telefono){
+        if (instancia == null){
+            instancia = new Academia(nombre, nit, telefono);
+        }
+
+        return instancia;
     }
 
 
