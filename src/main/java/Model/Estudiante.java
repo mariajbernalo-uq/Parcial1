@@ -157,4 +157,12 @@ public class Estudiante {
     public List<ServicioAdicional> getListaServicioAdicional() {
         return listaServicioAdicional;
     }
+
+    public void setListaDeCursos(List<Curso> listaDeCursos) {
+        this.listaDeCursos = listaDeCursos;
+    }
+
+    public void setListaServicioAdicional(List<ServicioAdicional> listaServicioAdicional) {
+        this.listaServicioAdicional = listaServicioAdicional;
+    }
 }

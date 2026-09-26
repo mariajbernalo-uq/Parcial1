@@ -11,7 +11,7 @@ public class Academia {
     private String nit;
     private String telefono;
 
-    private List<Profesor> lisProfesores;
+    private List<Profesor> listProfesores;
     private List<Estudiante> listEstudiantes;
     private List<Matricula> listMatriculas;
 
@@ -20,7 +20,7 @@ public class Academia {
         this.nit = nit;
         this.telefono =telefono;
 
-        lisProfesores =new ArrayList<>();
+        listProfesores =new ArrayList<>();
         listEstudiantes = new ArrayList<>();
         listMatriculas = new ArrayList<>();
 
@@ -113,6 +113,178 @@ public class Academia {
 
     }
 
+    /**
+     * Sirve para actualizar los datos del estudiante, se debe crear un estudiante nuevo, se puede usar builder para hacerlo y este metodo cambia los atributos del que ya estaba
+     * @param documento
+     * @param estudianteActualizado
+     * @return bolleano en confimación de la actualización para activar el botton del controlador
+     */
+
+    public boolean actualizarDatosEstudiante(String documento, Estudiante estudianteActualizado){
+        boolean bandera = false;
+        Estudiante estudianteRegistrado = null;
+        for (Estudiante est : listEstudiantes) {
+            if (est.getDocumentoDeIdentidad().equals(documento)) {
+                estudianteRegistrado = (Estudiante) est;
+
+                estudianteRegistrado.setNombre(estudianteActualizado.getNombre());
+                estudianteRegistrado.setTelefono(estudianteActualizado.getTelefono());
+                estudianteRegistrado.setCorreo(estudianteActualizado.getCorreo());
+                estudianteRegistrado.setEdad(estudianteActualizado.getEdad());
+                estudianteRegistrado.setDocumentoDeIdentidad(estudianteActualizado.getDocumentoDeIdentidad());
+                bandera =true;
+                JOptionPane.showMessageDialog(null, "El estudiante " + nombre + "Se actualizó");
+                break;
+
+
+            }
+
+        }
+        return bandera;
+    }
+
+    /**
+     * Eliminar estudiante de la lista de estudiantes con el número de documento
+     * @param documento
+     * @return
+     */
+    public boolean eliminarEstudiante(String documento){
+        boolean bandera = false;
+        Estudiante estudianteABorrar =null;
+
+        for(Estudiante est : listEstudiantes){
+            if(est.getDocumentoDeIdentidad().equals(documento)){
+                JOptionPane.showMessageDialog(null,"Se eliminó a " + est.getNombre() +" de la basé de datos");
+                listEstudiantes.remove(est);
+                bandera =true;
+
+            }
+        }
+
+        return  bandera;
+
+    }
+//--------------------------------------------------
+//CRUD Profesor
+
+    /**
+     * Validar si un profesor exite en la lista de profesores
+     * @param id
+     * @return
+     */
+
+    public boolean validarExistenciaProfesor(String id){
+        boolean bandera = false;
+
+        for (Profesor pro : listProfesores ){
+
+            if (pro.getDocumentoDeIdentidad().equals(id)){
+                bandera = true;
+                break;
+            }
+        }
+        if ( bandera == false){
+            JOptionPane.showMessageDialog(null, "El Profesor no existe");
+        }
+        return bandera;
+    }
+
+    /**
+     * Busca y regresa un objeto de tipo Profesor de la lista de profesores
+     * @param id
+     * @return
+     */
+
+
+    public Profesor buscarProfesor(String id){
+        Profesor profesorBuscado = null;
+
+        for (Profesor prof : listProfesores ){
+
+            if (prof.getDocumentoDeIdentidad().equals(id)){
+                profesorBuscado = prof;
+                break;
+            }
+        }
+
+        if (profesorBuscado == null){
+            JOptionPane.showMessageDialog(null, "El Profesor no existe");
+        }
+
+        return profesorBuscado;
+    }
+
+    /**
+     * Sirve para crear profesor con todos los atributos
+     * @param nombre
+     * @param documentoDeIdentidad
+     * @param telefono
+     * @param idiomaQueEnsenia
+     * @param tarifaPorSesion
+     */
+
+    public void crearProfesor(String nombre,
+                              String documentoDeIdentidad,
+                              String telefono,
+                              Idioma idiomaQueEnsenia,
+                              double tarifaPorSesion){
+
+        if(validarExistenciaProfesor(documentoDeIdentidad)==true){
+            JOptionPane.showMessageDialog(null,"El profesor con el documento: "+ documentoDeIdentidad+ " ya está registrado");
+        } else{
+            Profesor nuevoProfesor = new Profesor.Builder()
+                    .nombre(nombre)
+                    .documentoDeIdentidad(documentoDeIdentidad)
+                    .telefono(telefono)
+                    .idiomaQueEnsenia(idiomaQueEnsenia)
+                    .tarifaPorSesion(tarifaPorSesion)
+                    .build();
+
+            listProfesores.add(nuevoProfesor);
+            JOptionPane.showMessageDialog(null,"Se registró a " + nombre +"En la basé de datos");
+
+        }
+
+
+
+    }
+
+    /**
+     * Metodo para actualizar los datos de un profesor en la lista, se crea otro objeto en el controler y cambia los atributos por los de este
+     * @param documento
+     * @param profesorActualizado
+     * @return boolean confimación de que se actualizó
+     */
+
+    public boolean actualizarProfesor(String documento, Profesor profesorActualizado){
+        boolean bandera = false;
+        Profesor profesorRegistrado = null;
+        for (Profesor prof : listProfesores) {
+            if (prof.getDocumentoDeIdentidad().equals(documento)) {
+                profesorRegistrado = (Profesor) prof;
+
+                profesorRegistrado.setNombre(profesorActualizado.getNombre());
+                profesorRegistrado.setTelefono(profesorActualizado.getTelefono());
+                profesorRegistrado.setIdiomaQueEnsenia(profesorActualizado.getIdiomaQueEnsenia());
+                profesorRegistrado.setTarifaPorSesion(profesorActualizado.getTarifaPorSesion());
+                profesorRegistrado.setDocumentoDeIdentidad(profesorActualizado.getDocumentoDeIdentidad());
+                bandera =true;
+                JOptionPane.showMessageDialog(null, "El profesor " + nombre + "Se actualizó");
+                break;
+
+
+            }
+
+        }
+        return bandera;
+    }
+
+
+
+
+
+
+
 
 
 
@@ -121,3 +293,16 @@ public class Academia {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

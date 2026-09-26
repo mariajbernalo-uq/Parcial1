@@ -121,4 +121,32 @@ public class Profesor {
     public List<Estudiante> getListaEstudiantesProfesor() {
         return listaEstudiantesProfesor;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDocumentoDeIdentidad(String documentoDeIdentidad) {
+        this.documentoDeIdentidad = documentoDeIdentidad;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setIdiomaQueEnsenia(Idioma idiomaQueEnsenia) {
+        this.idiomaQueEnsenia = idiomaQueEnsenia;
+    }
+
+    public void setTarifaPorSesion(double tarifaPorSesion) {
+        this.tarifaPorSesion = tarifaPorSesion;
+    }
+
+    public void setListaDeCursosProfesor(List<Curso> listaDeCursosProfesor) {
+        this.listaDeCursosProfesor = listaDeCursosProfesor;
+    }
+
+    public void setListaEstudiantesProfesor(List<Estudiante> listaEstudiantesProfesor) {
+        this.listaEstudiantesProfesor = listaEstudiantesProfesor;
+    }
 }
