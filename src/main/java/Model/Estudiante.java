@@ -1,5 +1,9 @@
 package Model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Estudiante {
 
     private String nombre;
@@ -7,7 +11,10 @@ public class Estudiante {
     private String telefono;
     private String correo;
     private int edad;
-    private String fechaDeRegistro;
+    private LocalDate fechaDeRegistro;
+
+    private List<Curso> listaDeCursos;
+    private List<ServicioAdicional> listaServicioAdicional;
 
 
     public Estudiante(Builder builder){
@@ -18,6 +25,11 @@ public class Estudiante {
         this.edad = builder.edad;
         this.fechaDeRegistro = builder.fechaDeRegistro;
 
+        this.listaDeCursos = builder.listaDeCursos;
+        this.listaServicioAdicional = builder.listaServicioAdicional;
+
+
+
     }
 
 
@@ -27,7 +39,10 @@ public class Estudiante {
         private String telefono;
         private String correo;
         private int edad;
-        private String fechaDeRegistro;
+        private LocalDate fechaDeRegistro;
+
+        private List<Curso> listaDeCursos =new ArrayList<>();
+        private List<ServicioAdicional> listaServicioAdicional = new ArrayList<>();
 
         public Builder nombre(String nombre) {
             this.nombre = nombre;
@@ -54,9 +69,23 @@ public class Estudiante {
             return this;
         }
 
-        public Builder setFechaDeRegistro(String fechaDeRegistro) {
+        public Builder fechaDeRegistro(LocalDate fechaDeRegistro) {
             this.fechaDeRegistro = fechaDeRegistro;
             return this;
+        }
+
+        public Builder listaDeCursos(List<Curso> listaDeCursos) {
+            this.listaDeCursos = listaDeCursos;
+            return this;
+        }
+
+        public Builder listaServicioAdicional(List<ServicioAdicional> listaServicioAdicional) {
+            this.listaServicioAdicional = listaServicioAdicional;
+            return this;
+        }
+
+        public Estudiante build(){
+            return new Estudiante(this);
         }
     }
 
@@ -113,11 +142,19 @@ public class Estudiante {
         this.edad = edad;
     }
 
-    public String getFechaDeRegistro() {
+    public LocalDate getFechaDeRegistro() {
         return fechaDeRegistro;
     }
 
-    public void setFechaDeRegistro(String fechaDeRegistro) {
+    public void setFechaDeRegistro(LocalDate fechaDeRegistro) {
         this.fechaDeRegistro = fechaDeRegistro;
+    }
+
+    public List<Curso> getListaDeCursos() {
+        return listaDeCursos;
+    }
+
+    public List<ServicioAdicional> getListaServicioAdicional() {
+        return listaServicioAdicional;
     }
 }

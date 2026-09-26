@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.List;
+
 public class Profesor {
 
     private String nombre;
@@ -8,6 +10,9 @@ public class Profesor {
     private Idioma idiomaQueEnsenia;
     private double tarifaPorSesion;
 
+    private List<Curso> listaDeCursosProfesor;
+    private List<Estudiante> listaEstudiantesProfesor;
+
 
     public Profesor(Builder builder){
         this.nombre = builder.nombre;
@@ -15,6 +20,9 @@ public class Profesor {
         this.telefono = builder.telefono;
         this.idiomaQueEnsenia = builder.idiomaQueEnsenia;
         this.tarifaPorSesion = builder.tarifaPorSesion;
+        this.listaDeCursosProfesor = builder.listaDeCursosProfesor;
+        this.listaEstudiantesProfesor = builder.listaEstudiantesProfesor;
+
 
 
     }
@@ -26,6 +34,8 @@ public class Profesor {
         private String telefono;
         private Idioma idiomaQueEnsenia;
         private double tarifaPorSesion;
+        private List<Curso> listaDeCursosProfesor;
+        private List<Estudiante> listaEstudiantesProfesor;
 
         public Builder nombre(String nombre) {
             this.nombre = nombre;
@@ -50,6 +60,20 @@ public class Profesor {
         public Builder tarifaPorSesion(double tarifaPorSesion) {
             this.tarifaPorSesion = tarifaPorSesion;
             return this;
+        }
+
+        public Builder listaDeCursosProfesor(List<Curso> listaDeCursosProfesor) {
+            this.listaDeCursosProfesor = listaDeCursosProfesor;
+            return this;
+        }
+
+        public Builder listaEstudiantesProfesor(List<Estudiante> listaEstudiantesProfesor) {
+            this.listaEstudiantesProfesor = listaEstudiantesProfesor;
+            return this;
+        }
+
+        public Profesor build(){
+            return new Profesor(this);
         }
 
 
@@ -88,5 +112,13 @@ public class Profesor {
 
     public double getTarifaPorSesion() {
         return tarifaPorSesion;
+    }
+
+    public List<Curso> getListaDeCursosProfesor() {
+        return listaDeCursosProfesor;
+    }
+
+    public List<Estudiante> getListaEstudiantesProfesor() {
+        return listaEstudiantesProfesor;
     }
 }
