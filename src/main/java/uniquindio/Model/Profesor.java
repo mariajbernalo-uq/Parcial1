@@ -77,20 +77,21 @@ public class Profesor {
 
 
     }
+    //Método para calcular sesiones
+    public double calcularValorSesiones(int cantidadSesiones) {
+        if (cantidadSesiones < 0) {
+            throw new IllegalArgumentException(
+                    "La cantidad de sesiones no puede ser negativa."
+            );
+        }
+
+        return tarifaPorSesion * cantidadSesiones;
+    }
 
 
     @Override
-
-
-
     public String toString() {
-        return "Profesor{" +
-                "nombre='" + nombre + '\'' +
-                ", documentoDeIdentidad='" + documentoDeIdentidad + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", idiomaQueEnsenia='" + idiomaQueEnsenia + '\'' +
-                ", tarifaPorSesion=" + tarifaPorSesion +
-                '}';
+        return nombre + " (" + idiomaQueEnsenia + ")";
     }
 
     public String getNombre() {

@@ -39,7 +39,7 @@ public class AcademiaViewController {
     }
 
     @FXML
-    private void mostrarVistaFacturacion() {
+    private void mostrarVistaReportes() {
         cargarVista("Reportes.fxml");
     }
 
@@ -75,6 +75,14 @@ public class AcademiaViewController {
 
                     controller.setCursoController(
                             new CursoController(academia)
+                    );
+                }
+                case "Matricula.fxml" -> {
+                    MatriculaViewController controller =
+                            loader.getController();
+
+                    controller.setMatriculaController(
+                            new MatriculaController(academia)
                     );
                 }
                 case "Reportes.fxml" -> {

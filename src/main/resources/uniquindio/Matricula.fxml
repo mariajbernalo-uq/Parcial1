@@ -1,14 +1,286 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="uniquindio.ViewController.MatriculaViewController"
+            fitToWidth="true">
 
-</AnchorPane>
+    <content>
+        <VBox spacing="18">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+
+            <Label text="Matrículas"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+            <!-- Datos de la matrícula y búsqueda del estudiante -->
+            <GridPane hgap="12" vgap="12">
+
+                <!-- Fila 0: código -->
+                <Label text="Código de matrícula:"
+                       GridPane.columnIndex="0"
+                       GridPane.rowIndex="0"/>
+                <TextField fx:id="txtCodigoMatricula"
+                           promptText="Ejemplo: MAT-006"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="0"/>
+
+                <!-- Fila 1: buscar estudiante -->
+                <Label text="Documento del estudiante:"
+                       wrapText="true"
+                       GridPane.columnIndex="0"
+                       GridPane.rowIndex="1"/>
+                <TextField fx:id="txtDocumentoEstudiante"
+                           promptText="Documento registrado"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+                <Button text="Buscar estudiante"
+                        onAction="#buscarEstudiante"
+                        GridPane.columnIndex="2"
+                        GridPane.rowIndex="1"/>
+
+                <!-- Fila 2: datos del estudiante encontrado -->
+                <Label text="Nombre:"
+                       GridPane.columnIndex="0"
+                       GridPane.rowIndex="2"/>
+                <TextField fx:id="txtNombreEstudiante"
+                           editable="false"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="2"/>
+
+                <Label text="Correo:"
+                       GridPane.columnIndex="2"
+                       GridPane.rowIndex="2"/>
+                <TextField fx:id="txtCorreoEstudiante"
+                           editable="false"
+                           GridPane.columnIndex="3"
+                           GridPane.rowIndex="2"/>
+
+                <!-- Fila 3: duración y descuento -->
+                <Label text="Duración contratada (meses):"
+                       wrapText="true"
+                       GridPane.columnIndex="0"
+                       GridPane.rowIndex="3"/>
+                <TextField fx:id="txtDuracionContratada"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="3"/>
+
+                <Label text="Descuento ($):"
+                       GridPane.columnIndex="2"
+                       GridPane.rowIndex="3"/>
+                <TextField fx:id="txtDescuento"
+                           promptText="0"
+                           GridPane.columnIndex="3"
+                           GridPane.rowIndex="3"/>
+
+            </GridPane>
+
+            <Label text="La fecha de matrícula se registra automáticamente al crearla."
+                   wrapText="true"/>
+
+            <Separator/>
+
+            <!-- Selección de cursos y gestión de servicios -->
+            <HBox spacing="35" alignment="TOP_LEFT">
+
+                <!-- Izquierda: cursos y servicios de la matrícula -->
+                <VBox spacing="12" prefWidth="420">
+                    <Label text="Cursos y servicios de la matrícula"
+                           wrapText="true"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                    <Label text="Cursos disponibles:"/>
+                    <MenuButton fx:id="menuCursos"
+                                text="Seleccionar cursos"
+                                prefWidth="260"/>
+
+                    <Label fx:id="lblCursosSeleccionados"
+                           text="Ningún curso seleccionado"
+                           wrapText="true"
+                           maxWidth="400"/>
+
+                    <Label text="Servicios disponibles:"/>
+                    <MenuButton fx:id="menuServicios"
+                                text="Seleccionar servicios"
+                                prefWidth="260"/>
+
+                    <Label fx:id="lblServiciosSeleccionados"
+                           text="Ningún servicio seleccionado"
+                           wrapText="true"
+                           maxWidth="400"/>
+                </VBox>
+
+                <!-- Derecha: administrar servicios adicionales -->
+                <VBox spacing="12" prefWidth="440">
+                    <Label text="Administrar servicios adicionales"
+                           wrapText="true"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                    <GridPane hgap="10" vgap="10">
+                        <Label text="Código:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="0"/>
+                        <TextField fx:id="txtCodigoServicio"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="0"/>
+
+                        <Label text="Nombre:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="1"/>
+                        <TextField fx:id="txtNombreServicio"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
+
+                        <Label text="Descripción:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="2"/>
+                        <TextField fx:id="txtDescripcionServicio"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="2"/>
+
+                        <Label text="Precio:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="3"/>
+                        <TextField fx:id="txtPrecioServicio"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="3"/>
+                    </GridPane>
+
+                    <Button text="Crear servicio"
+                            onAction="#crearServicio"/>
+
+                    <Separator/>
+
+                    <Label text="Selecciona un servicio para administrarlo:"
+                           wrapText="true"/>
+
+                    <ComboBox fx:id="cmbServicioGestion"
+                              promptText="Selecciona un servicio"
+                              prefWidth="270"/>
+
+                    <HBox spacing="10">
+                        <Button text="Eliminar servicio"
+                                onAction="#eliminarServicioCatalogo"/>
+
+                        <Button fx:id="btnCambiarDisponibilidad"
+                                text="Cambiar disponibilidad"
+                                onAction="#cambiarDisponibilidadServicio"/>
+                    </HBox>
+
+                    <Label fx:id="lblDisponibilidadServicio"
+                           text="Disponibilidad: selecciona un servicio"
+                           wrapText="true"
+                           maxWidth="400"/>
+                </VBox>
+            </HBox>
+
+            <Separator/>
+
+            <!-- Solo aparece si se selecciona un curso personalizado -->
+            <VBox fx:id="panelAsignacionProfesor"
+                  spacing="10"
+                  visible="false"
+                  managed="false">
+
+                <Label text="Asignación de profesores para cursos personalizados"
+                       wrapText="true"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="Curso personalizado:"
+                           wrapText="true"/>
+
+                    <ComboBox fx:id="cmbCursoPersonalizado"
+                              promptText="Selecciona un curso"
+                              prefWidth="220"/>
+
+                    <Label text="Profesor:"/>
+
+                    <ComboBox fx:id="cmbProfesor"
+                              promptText="Selecciona un profesor"
+                              prefWidth="220"/>
+
+                    <Button text="Asignar profesor"
+                            onAction="#asignarProfesor"/>
+                </HBox>
+
+                <Label fx:id="lblProfesoresAsignados"
+                       text="No hay profesores asignados"
+                       wrapText="true"
+                       maxWidth="900"/>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Acciones de matrícula -->
+            <HBox spacing="10">
+                <Button text="Registrar matrícula"
+                        onAction="#registrar"/>
+                <Button text="Actualizar"
+                        onAction="#actualizar"/>
+                <Button text="Eliminar"
+                        onAction="#eliminar"/>
+                <Button text="Limpiar"
+                        onAction="#limpiar"/>
+            </HBox>
+
+            <!-- Búsqueda de matrículas -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="txtBuscarDocumento"
+                           promptText="Documento del estudiante"
+                           prefWidth="220"/>
+
+                <Button text="Buscar matrícula"
+                        onAction="#buscar"/>
+
+                <Button text="Mostrar todas"
+                        onAction="#mostrarTodas"/>
+            </HBox>
+
+            <Label fx:id="lblValorTotal"
+                   text="Valor total de la matrícula: 0"
+                   wrapText="true"
+                   style="-fx-font-size: 17px; -fx-font-weight: bold;"/>
+
+            <!-- Matrículas registradas -->
+            <TableView fx:id="tablaMatriculas"
+                       prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="colCodigoMatricula"
+                                 text="Matrícula"
+                                 prefWidth="110"/>
+                    <TableColumn fx:id="colDocumento"
+                                 text="Documento"
+                                 prefWidth="120"/>
+                    <TableColumn fx:id="colEstudiante"
+                                 text="Estudiante"
+                                 prefWidth="170"/>
+                    <TableColumn fx:id="colFecha"
+                                 text="Fecha"
+                                 prefWidth="115"/>
+                    <TableColumn fx:id="colCursos"
+                                 text="Cursos"
+                                 prefWidth="220"/>
+                    <TableColumn fx:id="colServicios"
+                                 text="Servicios adicionales"
+                                 prefWidth="220"/>
+                    <TableColumn fx:id="colProfesores"
+                                 text="Profesores asignados"
+                                 prefWidth="220"/>
+                    <TableColumn fx:id="colDescuento"
+                                 text="Descuento"
+                                 prefWidth="110"/>
+                    <TableColumn fx:id="colValorTotal"
+                                 text="Valor total"
+                                 prefWidth="130"/>
+                </columns>
+            </TableView>
+
+        </VBox>
+    </content>
+</ScrollPane>

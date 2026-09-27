@@ -19,6 +19,7 @@ public class Academia {
         private List<Matricula> listMatriculas;
         private List<Curso> listCursos;
         private List<Beneficio> listBeneficios;
+        private List<ServicioAdicional> listServiciosAdicionales;
 
         private Academia(String nombre, String nit, String telefono, String direccion, String correo, String paginaWeb){
             this.nombre = nombre;
@@ -33,6 +34,7 @@ public class Academia {
             listMatriculas = new ArrayList<>();
             listCursos = new ArrayList<>();
             listBeneficios = new ArrayList<>();
+            listServiciosAdicionales= new ArrayList<>();
 
         }
     public static Academia getInstancia(
@@ -456,10 +458,320 @@ public class Academia {
     }
 
 
-    //Matriculas
+//MATRICULAS
 
-// -------------------- REPORTES GENERALES --------------------
+    public Matricula buscarMatricula(String documentoEstudiante) {
+        for (Matricula matricula : listMatriculas) {
+            if (matricula.getEstudiante()
+                    .getDocumentoDeIdentidad()
+                    .equals(documentoEstudiante)) {
+                return matricula;
+            }
+        }
 
+        return null;
+    }
+    public Matricula buscarMatriculaPorCodigo(String codigo) {
+        for (Matricula matricula : listMatriculas) {
+            if (matricula.getCodigo().equals(codigo)) {
+                return matricula;
+            }
+        }
+        return null;
+    }
+
+    public List<Matricula> buscarMatriculasPorEstudiante(
+            String documento
+    ) {
+        List<Matricula> resultado = new ArrayList<>();
+
+        for (Matricula matricula : listMatriculas) {
+            if (matricula.getEstudiante()
+                    .getDocumentoDeIdentidad()
+                    .equals(documento)) {
+                resultado.add(matricula);
+            }
+        }
+
+        return resultado;
+    }
+
+    public boolean registrarMatricula(Matricula matricula) {
+        if (matricula == null || matricula.getEstudiante() == null) {
+            return false;
+        }
+
+        String documento = matricula.getEstudiante()
+                .getDocumentoDeIdentidad();
+
+        if (buscarMatriculaPorCodigo(matricula.getCodigo()) != null
+                || buscarEstudiante(documento) == null) {
+            return false;
+        }
+
+        for (Curso curso : matricula.getListaCursos()) {
+            if (buscarCurso(curso.getCodigo()) == null) {
+                return false;
+            }
+        }
+
+        listMatriculas.add(matricula);
+        return true;
+    }
+
+    public boolean eliminarMatricula(String documentoEstudiante) {
+        return listMatriculas.removeIf(matricula ->
+                matricula.getEstudiante()
+                        .getDocumentoDeIdentidad()
+                        .equals(documentoEstudiante)
+        );
+    }
+
+    public List<Matricula> getListMatriculas() {
+        return List.copyOf(listMatriculas);
+    }
+
+    public boolean actualizarDescuentoMatricula(
+            String documentoEstudiante,
+            double descuento
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+
+        if (matricula == null
+                || !Double.isFinite(descuento)
+                || descuento < 0) {
+            return false;
+        }
+
+        matricula.aplicarDescuento(descuento);
+        return true;
+    }
+
+    public boolean agregarCursoAMatricula(
+            String documentoEstudiante,
+            String codigoCurso
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+        Curso curso = buscarCurso(codigoCurso);
+
+        if (matricula == null || curso == null) {
+            return false;
+        }
+
+        return matricula.agregarCurso(curso);
+    }
+
+    public boolean quitarCursoDeMatricula(
+            String documentoEstudiante,
+            String codigoCurso
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+
+        if (matricula == null) {
+            return false;
+        }
+
+        // La matrícula siempre debe conservar al menos un curso.
+        if (matricula.getListaCursos().size() <= 1) {
+            return false;
+        }
+
+        return matricula.eliminarCurso(codigoCurso);
+    }
+
+    public boolean asignarProfesorAMatricula(
+            String documentoEstudiante,
+            String codigoCurso,
+            String documentoProfesor
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+        Profesor profesor =
+                buscarProfesor(documentoProfesor);
+
+        if (matricula == null || profesor == null) {
+            return false;
+        }
+
+        // Matricula valida el tipo de curso y el idioma.
+        return matricula.asignarProfesor(
+                codigoCurso,
+                profesor
+        );
+    }
+
+    public boolean retirarProfesorDeMatricula(
+            String documentoEstudiante,
+            String codigoCurso
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+
+        if (matricula == null) {
+            return false;
+        }
+
+        return matricula.retirarProfesor(codigoCurso);
+    }
+
+    public boolean agregarServicioAMatricula(
+            String documentoEstudiante,
+            ServicioAdicional servicio
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+
+        if (matricula == null || servicio == null) {
+            return false;
+        }
+
+        ServicioAdicional registrado =
+                buscarServicioAdicional(
+                        servicio.getCodigo()
+                );
+
+        if (registrado == null || !registrado.isDisponible()) {
+            return false;
+        }
+
+        for (ServicioAdicional actual :
+                matricula.getServiciosAdicionales()) {
+            if (actual.getCodigo().equals(
+                    registrado.getCodigo()
+            )) {
+                return false;
+            }
+        }
+
+        return matricula.agregarServicio(registrado);
+    }
+
+    public boolean quitarServicioDeMatricula(
+            String documentoEstudiante,
+            ServicioAdicional servicio
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+
+        if (matricula == null || servicio == null) {
+            return false;
+        }
+
+        // Usar el objeto guardado en la matrícula, porque
+        // eliminarServicio(...) recibe un objeto ServicioAdicional.
+        for (ServicioAdicional actual :
+                matricula.getServiciosAdicionales()) {
+            if (actual.getCodigo().equals(
+                    servicio.getCodigo()
+            )) {
+                return matricula.eliminarServicio(actual);
+            }
+        }
+
+        return false;
+    }
+
+    public boolean registrarPagoDeMatricula(
+            String documentoEstudiante,
+            Pago pago
+    ) {
+        Matricula matricula =
+                buscarMatricula(documentoEstudiante);
+
+        if (matricula == null || pago == null) {
+            return false;
+        }
+
+        return matricula.registrarPago(pago);
+    }
+
+
+    //SERVICIOS ADICIONALES
+    public List<ServicioAdicional> getListServiciosAdicionales() {
+        return List.copyOf(listServiciosAdicionales);
+    }
+
+    public ServicioAdicional buscarServicioAdicional(String codigo) {
+        for (ServicioAdicional servicio : listServiciosAdicionales) {
+            if (servicio.getCodigo().equals(codigo)) {
+                return servicio;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean crearServicioAdicional(
+            String codigo,
+            String nombre,
+            String descripcion,
+            double precio
+    ) {
+        if (codigo == null || codigo.isBlank()
+                || nombre == null || nombre.isBlank()
+                || !Double.isFinite(precio)
+                || precio < 0) {
+            return false;
+        }
+
+        codigo = codigo.trim();
+
+        if (buscarServicioAdicional(codigo) != null) {
+            return false;
+        }
+
+        ServicioAdicional servicio =
+                new ServicioAdicional.Builder()
+                        .codigo(codigo)
+                        .nombre(nombre.trim())
+                        .descripcion(
+                                descripcion == null
+                                        ? ""
+                                        : descripcion.trim()
+                        )
+                        .precio(precio)
+                        .build();
+
+        listServiciosAdicionales.add(servicio);
+        return true;
+    }
+
+    public boolean cambiarDisponibilidadServicio(
+            String codigo,
+            boolean disponible
+    ) {
+        ServicioAdicional servicio =
+                buscarServicioAdicional(codigo);
+
+        if (servicio == null) {
+            return false;
+        }
+
+        servicio.cambiarDisponibilidad(disponible);
+        return true;
+    }
+
+    public boolean eliminarServicioAdicional(String codigo) {
+        ServicioAdicional servicio =
+                buscarServicioAdicional(codigo);
+
+        if (servicio == null) {
+            return false;
+        }
+        for (Matricula matricula : listMatriculas) {
+            for (ServicioAdicional usado :
+                    matricula.getServiciosAdicionales()) {
+                if (usado.getCodigo().equals(codigo)) {
+                    return false;
+                }
+            }
+        }
+
+        return listServiciosAdicionales.remove(servicio);
+    }
     // -------------------- REPORTES GENERALES --------------------
 
     public int contarEstudiantes() {
@@ -477,7 +789,6 @@ public class Academia {
     public int contarMatriculas() {
         return listMatriculas.size();
     }
-
 // -------------------- REPORTES POR PERÍODO --------------------
 
     public int contarMatriculasEntre(
@@ -515,7 +826,7 @@ public class Academia {
                     fechaInicial,
                     fechaFinal
             )) {
-                total += matricula.calcularTotalMatricula();
+                total += matricula.calcularTotal();
             }
         }
 

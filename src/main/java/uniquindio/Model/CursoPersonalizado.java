@@ -61,4 +61,9 @@ public class CursoPersonalizado extends Curso {
     public void setObjetivoEstudiante(String objetivoEstudiante) {
         this.objetivoEstudiante = objetivoEstudiante;
     }
+
+    @Override
+    public String toString() {
+        return getNombre() + " (" + getIdioma() + ")";
+    }
 }
