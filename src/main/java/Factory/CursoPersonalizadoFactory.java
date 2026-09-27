@@ -1,9 +1,6 @@
 package Factory;
 
-import Model.Academia;
-import Model.Curso;
-import Model.CursoPersonalizado;
-import Model.Estado;
+import Model.*;
 
 public class CursoPersonalizadoFactory extends CursoFactory {
 
@@ -19,7 +16,7 @@ public class CursoPersonalizadoFactory extends CursoFactory {
     private Estado estado;
 
     private int cantidadSesiones;
-    private String nivelReferencia;
+    private Nivel nivelReferencia;
     private String objetivosEstudiante;
 
     public CursoPersonalizadoFactory(
@@ -31,7 +28,7 @@ public class CursoPersonalizadoFactory extends CursoFactory {
             double valorMensual,
             Estado estado,
             int cantidadSesiones,
-            String nivelReferencia,
+            Nivel nivelReferencia,
             String objetivosEstudiante) {
 
         this.codigo = codigo;

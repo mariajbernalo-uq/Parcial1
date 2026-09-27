@@ -3,7 +3,7 @@ package Model;
 public class CursoPersonalizado extends Curso {
 
     private int cantidadSesiones;
-    private String nivelReferencia;
+    private Nivel nivelReferencia;
     private String objetivosEstudiante;
 
     private CursoPersonalizado(Builder builder) {
@@ -18,7 +18,7 @@ public class CursoPersonalizado extends Curso {
         return cantidadSesiones;
     }
 
-    public String getNivelReferencia() {
+    public Nivel getNivelReferencia() {
         return nivelReferencia;
     }
 
@@ -29,7 +29,7 @@ public class CursoPersonalizado extends Curso {
     public static class Builder extends Curso.Builder<Builder> {
 
         private int cantidadSesiones;
-        private String nivelReferencia;
+        private Nivel nivelReferencia;
         private String objetivosEstudiante;
 
         public Builder cantidadSesiones(int cantidadSesiones) {
@@ -37,7 +37,7 @@ public class CursoPersonalizado extends Curso {
             return this;
         }
 
-        public Builder nivelReferencia(String nivelReferencia) {
+        public Builder nivelReferencia(Nivel nivelReferencia) {
             this.nivelReferencia = nivelReferencia;
             return this;
         }
