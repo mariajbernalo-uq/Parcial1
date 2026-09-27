@@ -18,6 +18,7 @@ public class Academia {
     private List<Profesor> listProfesores;
     private List<Estudiante> listEstudiantes;
     private List<Matricula> listMatriculas;
+    private List<Curso> listCursos;
 
     private Academia(String nombre, String nit, String telefono){
         this.nombre = nombre;
@@ -27,6 +28,7 @@ public class Academia {
         listProfesores =new ArrayList<>();
         listEstudiantes = new ArrayList<>();
         listMatriculas = new ArrayList<>();
+        listCursos = new ArrayList<>();
 
     }
 // Patron singleton
@@ -314,6 +316,26 @@ public class Academia {
 
         return  bandera;
 
+    }
+
+
+
+    //Metodos para agragar a listas
+
+    public void agregarCurso(Curso curso){
+        listCursos.add(curso);
+    }
+
+    public void agregarMatricula(Matricula matricula){
+        listMatriculas.add(matricula);
+    }
+
+    public void agregarEstudiante(Estudiante estudiante){
+        listEstudiantes.add(estudiante);
+    }
+
+    public void agregarProfesor(Profesor profesor){
+        listProfesores.add(profesor);
     }
 
 
