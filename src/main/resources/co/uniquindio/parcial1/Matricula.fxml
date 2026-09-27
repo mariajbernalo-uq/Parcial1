@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ViewController.MatriculaViewController">
+
+    <top>
+
+        <Label text="GESTIÓN DE MATRÍCULAS"
+               style="-fx-font-size: 24px; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER">
+
+            <BorderPane.margin>
+                <Insets top="15" bottom="15"/>
+            </BorderPane.margin>
+
+        </Label>
+
+    </top>
+
+
+    <center>
+
+        <ScrollPane fitToWidth="true">
+
+            <content>
+
+                <VBox spacing="15">
+
+                    <padding>
+                        <Insets top="15"
+                                right="20"
+                                bottom="20"
+                                left="20"/>
+                    </padding>
+
+
+                    <!-- ================================= -->
+                    <!-- DATOS DE LA MATRÍCULA             -->
+                    <!-- ================================= -->
+
+                    <Label text="Datos de la matrícula"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+
+                    <GridPane hgap="10" vgap="10">
+
+                        <Label text="Código matrícula:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="0"/>
+
+                        <TextField fx:id="txtCodigoMatricula"
+                                   promptText="Código"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="0"/>
+
+
+                        <Label text="Documento estudiante:"
+                               GridPane.columnIndex="2"
+                               GridPane.rowIndex="0"/>
+
+                        <TextField fx:id="txtDocumentoEstudiante"
+                                   promptText="Documento"
+                                   GridPane.columnIndex="3"
+                                   GridPane.rowIndex="0"/>
+
+
+                        <Button text="Buscar estudiante"
+                                onAction="#buscarEstudiante"
+                                GridPane.columnIndex="4"
+                                GridPane.rowIndex="0"/>
+
+
+                        <Label text="Nombre:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="1"/>
+
+                        <TextField fx:id="txtNombreEstudiante"
+                                   editable="false"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
+
+
+                        <Label text="Correo:"
+                               GridPane.columnIndex="2"
+                               GridPane.rowIndex="1"/>
+
+                        <TextField fx:id="txtCorreoEstudiante"
+                                   editable="false"
+                                   GridPane.columnIndex="3"
+                                   GridPane.rowIndex="1"/>
+
+                    </GridPane>
+
+
+                    <!-- ================================= -->
+                    <!-- DURACIÓN Y DESCUENTO              -->
+                    <!-- ================================= -->
+
+                    <GridPane hgap="10" vgap="10">
+
+                        <Label text="Duración contratada:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="0"/>
+
+                        <TextField fx:id="txtDuracionContratada"
+                                   promptText="Meses"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="0"/>
+
+
+                        <Label text="Descuento:"
+                               GridPane.columnIndex="2"
+                               GridPane.rowIndex="0"/>
+
+                        <TextField fx:id="txtDescuento"
+                                   promptText="Valor descuento"
+                                   GridPane.columnIndex="3"
+                                   GridPane.rowIndex="0"/>
+
+                    </GridPane>
+
+
+                    <Separator/>
+
+
+                    <!-- ================================= -->
+                    <!-- CURSOS                             -->
+                    <!-- ================================= -->
+
+                    <Label text="Cursos"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+
+                    <HBox spacing="10">
+
+                        <MenuButton fx:id="menuCursos"
+                                    text="Seleccionar cursos"/>
+
+                        <Label fx:id="lblCursosSeleccionados"
+                               text="Ningún curso seleccionado"
+                               wrapText="true"/>
+
+                    </HBox>
+
+
+                    <Separator/>
+
+
+                    <!-- ================================= -->
+                    <!-- SERVICIOS                          -->
+                    <!-- ================================= -->
+
+                    <Label text="Servicios adicionales"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+
+                    <HBox spacing="10">
+
+                        <MenuButton fx:id="menuServicios"
+                                    text="Seleccionar servicios"/>
+
+                        <Label fx:id="lblServiciosSeleccionados"
+                               text="Ningún servicio seleccionado"
+                               wrapText="true"/>
+
+                    </HBox>
+
+
+                    <!-- ================================= -->
+                    <!-- CREAR SERVICIO                     -->
+                    <!-- ================================= -->
+
+                    <Label text="Crear servicio adicional"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+
+                    <GridPane hgap="10" vgap="10">
+
+                        <Label text="Código:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="0"/>
+
+                        <TextField fx:id="txtCodigoServicio"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="0"/>
+
+
+                        <Label text="Nombre:"
+                               GridPane.columnIndex="2"
+                               GridPane.rowIndex="0"/>
+
+                        <TextField fx:id="txtNombreServicio"
+                                   GridPane.columnIndex="3"
+                                   GridPane.rowIndex="0"/>
+
+
+                        <Label text="Precio:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="1"/>
+
+                        <TextField fx:id="txtPrecioServicio"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
+
+                    </GridPane>
+
+
+                    <Label text="Descripción:"/>
+
+                    <TextArea fx:id="txtDescripcionServicio"
+                              prefRowCount="2"
+                              promptText="Descripción del servicio"/>
+
+
+                    <Button text="Crear servicio"
+                            onAction="#crearServicio"
+                            prefWidth="150"/>
+
+
+                    <!-- ================================= -->
+                    <!-- GESTIÓN DEL CATÁLOGO               -->
+                    <!-- ================================= -->
+
+                    <Label text="Gestión de servicios"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+
+                    <HBox spacing="10">
+
+                        <ComboBox fx:id="cmbServicioGestion"
+                                  promptText="Seleccione servicio"
+                                  prefWidth="220"/>
+
+
+                        <Button fx:id="btnCambiarDisponibilidad"
+                                text="Cambiar disponibilidad"
+                                onAction="#cambiarDisponibilidadServicio"/>
+
+
+                        <Button text="Eliminar servicio"
+                                onAction="#eliminarServicioCatalogo"/>
+
+
+                        <Label fx:id="lblDisponibilidadServicio"
+                               text=""/>
+
+                    </HBox>
+
+
+                    <Separator/>
+
+
+                    <!-- ================================= -->
+                    <!-- ASIGNACIÓN DE PROFESOR             -->
+                    <!-- ================================= -->
+
+                    <VBox fx:id="panelAsignacionProfesor"
+                          spacing="10"
+                          visible="false"
+                          managed="false">
+
+                        <Label text="Asignación de profesor"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+
+                        <GridPane hgap="10" vgap="10">
+
+                            <Label text="Curso personalizado:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="0"/>
+
+                            <ComboBox fx:id="cmbCursoPersonalizado"
+                                      prefWidth="250"
+                                      promptText="Seleccione curso"
+                                      GridPane.columnIndex="1"
+                                      GridPane.rowIndex="0"/>
+
+
+                            <Label text="Profesor:"
+                                   GridPane.columnIndex="2"
+                                   GridPane.rowIndex="0"/>
+
+                            <ComboBox fx:id="cmbProfesor"
+                                      prefWidth="250"
+                                      promptText="Seleccione profesor"
+                                      GridPane.columnIndex="3"
+                                      GridPane.rowIndex="0"/>
+
+                        </GridPane>
+
+
+                        <Button text="Asignar profesor"
+                                onAction="#asignarProfesor"
+                                prefWidth="160"/>
+
+
+                        <Label text="Profesores asignados:"/>
+
+                        <Label fx:id="lblProfesoresAsignados"
+                               wrapText="true"/>
+
+                    </VBox>
+
+
+                    <Separator/>
+
+
+                    <!-- ================================= -->
+                    <!-- BOTONES CRUD                       -->
+                    <!-- ================================= -->
+
+                    <HBox spacing="10">
+
+                        <Button text="Registrar"
+                                onAction="#registrar"/>
+
+                        <Button text="Actualizar"
+                                onAction="#actualizar"/>
+
+                        <Button text="Eliminar"
+                                onAction="#eliminar"/>
+
+                        <Button text="Buscar"
+                                onAction="#buscar"/>
+
+                        <Button text="Mostrar todas"
+                                onAction="#mostrarTodas"/>
+
+                        <Button text="Limpiar"
+                                onAction="#limpiar"/>
+
+                    </HBox>
+
+
+                    <Separator/>
+
+
+                    <!-- ================================= -->
+                    <!-- TABLA DE MATRÍCULAS                -->
+                    <!-- ================================= -->
+
+                    <Label text="Matrículas registradas"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+
+                    <TableView fx:id="tablaMatriculas"
+                               prefHeight="350">
+
+                        <columns>
+
+                            <TableColumn fx:id="colCodigoMatricula"
+                                         text="Código"
+                                         prefWidth="90"/>
+
+                            <TableColumn fx:id="colDocumento"
+                                         text="Documento"
+                                         prefWidth="100"/>
+
+                            <TableColumn fx:id="colEstudiante"
+                                         text="Estudiante"
+                                         prefWidth="130"/>
+
+                            <TableColumn fx:id="colFecha"
+                                         text="Fecha"
+                                         prefWidth="100"/>
+
+                            <TableColumn fx:id="colCursos"
+                                         text="Cursos"
+                                         prefWidth="180"/>
+
+                            <TableColumn fx:id="colServicios"
+                                         text="Servicios"
+                                         prefWidth="180"/>
+
+                            <TableColumn fx:id="colProfesores"
+                                         text="Profesores"
+                                         prefWidth="150"/>
+
+                            <TableColumn fx:id="colDescuento"
+                                         text="Descuento"
+                                         prefWidth="100"/>
+
+                            <TableColumn fx:id="colValorTotal"
+                                         text="Valor total"
+                                         prefWidth="110"/>
+
+                        </columns>
+
+                    </TableView>
+
+                </VBox>
+
+            </content>
+
+        </ScrollPane>
+
+    </center>
+
+</BorderPane>

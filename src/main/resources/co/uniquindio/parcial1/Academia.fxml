@@ -1,16 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="co.uniquindio.parcial1.AcademiaController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ViewController.AcademiaViewController"
+            prefHeight="1100"
+            prefWidth="700">
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+    <left>
+
+        <VBox spacing="12"
+              prefWidth="190"
+              style="-fx-background-color:orange;">
+
+            <padding>
+                <Insets top="25"
+                        right="25"
+                        left="25"
+                        bottom="25"/>
+            </padding>
+
+            <Label text="Academia"
+                   style="-fx-text-fill: white; -fx-font-size: 20px;"/>
+
+            <Button text="Estudiantes"
+                    maxWidth="Infinity"
+                    onAction="#mostrarVistaEstudiantes"/>
+
+            <Button text="Profesores"
+                    maxWidth="Infinity"
+                    onAction="#mostrarVistaProfesores"/>
+
+            <Button text="Cursos"
+                    maxWidth="Infinity"
+                    onAction="#mostrarVistaCursos"/>
+
+            <Button text="Matricula"
+                    maxWidth="Infinity"
+                    onAction="#mostrarVistaMatricula"/>
+
+            <Button text="Reportes"
+                    maxWidth="Infinity"
+                    onAction="#mostrarVistaReportes"/>
+
+        </VBox>
+
+    </left>
+
+    <center>
+
+        <StackPane fx:id="contenedorContenido"/>
+
+    </center>
+
+</BorderPane>

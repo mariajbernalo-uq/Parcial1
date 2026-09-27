@@ -8,6 +8,10 @@ public class ServicioAdicional {
     private double precio;
     private boolean disponible;
 
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
     private ServicioAdicional(Builder builder) {
         this.codigo = builder.codigo;
         this.nombre = builder.nombre;

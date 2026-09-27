@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ViewController.ReportesViewController"
+            fitToWidth="true">
+
+    <content>
+
+        <VBox spacing="20"
+              alignment="TOP_CENTER">
+
+            <padding>
+                <Insets top="25"
+                        right="25"
+                        bottom="25"
+                        left="25"/>
+            </padding>
+
+
+            <!-- ============================= -->
+            <!-- TÍTULO -->
+            <!-- ============================= -->
+
+            <Label text="REPORTES DE LA ACADEMIA"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+
+            <!-- ============================= -->
+            <!-- REPORTE GENERAL -->
+            <!-- ============================= -->
+
+            <TitledPane text="Reporte general"
+                        expanded="true">
+
+                <content>
+
+                    <GridPane hgap="20"
+                              vgap="15"
+                              padding="20">
+
+                        <Label text="Total estudiantes:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="0"/>
+
+                        <Label fx:id="lblTotalEstudiantes"
+                               text="0"
+                               GridPane.columnIndex="1"
+                               GridPane.rowIndex="0"/>
+
+
+                        <Label text="Total profesores:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="1"/>
+
+                        <Label fx:id="lblTotalProfesores"
+                               text="0"
+                               GridPane.columnIndex="1"
+                               GridPane.rowIndex="1"/>
+
+
+                        <Label text="Total cursos:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="2"/>
+
+                        <Label fx:id="lblTotalCursos"
+                               text="0"
+                               GridPane.columnIndex="1"
+                               GridPane.rowIndex="2"/>
+
+
+                        <Label text="Total matrículas:"
+                               GridPane.columnIndex="0"
+                               GridPane.rowIndex="3"/>
+
+                        <Label fx:id="lblTotalMatriculas"
+                               text="0"
+                               GridPane.columnIndex="1"
+                               GridPane.rowIndex="3"/>
+
+
+                        <Button text="Actualizar reporte"
+                                onAction="#mostrarReporteGeneral"
+                                GridPane.columnIndex="0"
+                                GridPane.columnSpan="2"
+                                GridPane.rowIndex="4"/>
+
+                    </GridPane>
+
+                </content>
+
+            </TitledPane>
+
+
+            <!-- ============================= -->
+            <!-- REPORTE MENSUAL -->
+            <!-- ============================= -->
+
+            <TitledPane text="Reporte mensual"
+                        expanded="true">
+
+                <content>
+
+                    <VBox spacing="15"
+                          padding="20">
+
+                        <HBox spacing="10">
+
+                            <Label text="Mes:"/>
+
+                            <ComboBox fx:id="cmbMes"
+                                      prefWidth="120"/>
+
+                            <Label text="Año:"/>
+
+                            <ComboBox fx:id="cmbAnio"
+                                      prefWidth="120"/>
+
+                        </HBox>
+
+
+                        <Button text="Generar reporte mensual"
+                                onAction="#mostrarReporteMensual"/>
+
+
+                        <HBox spacing="10">
+
+                            <Label text="Matrículas:"
+                                   style="-fx-font-weight: bold;"/>
+
+                            <Label fx:id="lblMatriculasMes"
+                                   text="0"/>
+
+                        </HBox>
+
+
+                        <HBox spacing="10">
+
+                            <Label text="Valor total:"
+                                   style="-fx-font-weight: bold;"/>
+
+                            <Label fx:id="lblValorMatriculasMes"
+                                   text="$ 0.00"/>
+
+                        </HBox>
+
+                    </VBox>
+
+                </content>
+
+            </TitledPane>
+
+
+            <!-- ============================= -->
+            <!-- REPORTE ENTRE FECHAS -->
+            <!-- ============================= -->
+
+            <TitledPane text="Reporte entre fechas"
+                        expanded="true">
+
+                <content>
+
+                    <VBox spacing="15"
+                          padding="20">
+
+                        <HBox spacing="10">
+
+                            <Label text="Fecha inicial:"/>
+
+                            <DatePicker fx:id="fechaInicial"/>
+
+                        </HBox>
+
+
+                        <HBox spacing="10">
+
+                            <Label text="Fecha final:"/>
+
+                            <DatePicker fx:id="fechaFinal"/>
+
+                        </HBox>
+
+
+                        <Button text="Generar reporte del periodo"
+                                onAction="#mostrarReporteEntreFechas"/>
+
+
+                        <HBox spacing="10">
+
+                            <Label text="Matrículas:"
+                                   style="-fx-font-weight: bold;"/>
+
+                            <Label fx:id="lblMatriculasPeriodo"
+                                   text="0"/>
+
+                        </HBox>
+
+
+                        <HBox spacing="10">
+
+                            <Label text="Valor total:"
+                                   style="-fx-font-weight: bold;"/>
+
+                            <Label fx:id="lblValorMatriculasPeriodo"
+                                   text="$ 0.00"/>
+
+                        </HBox>
+
+                    </VBox>
+
+                </content>
+
+            </TitledPane>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>

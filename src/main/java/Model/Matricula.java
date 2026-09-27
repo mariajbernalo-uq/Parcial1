@@ -1,136 +1,322 @@
 package Model;
 
-import Model.Curso;
-import Model.Estudiante;
-import Model.ServicioAdicional;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Matricula {
 
+    private String codigo;
     private Estudiante estudiante;
     private LocalDate fechaMatricula;
     private int duracionContratada;
     private double descuento;
+
+    private List<Curso> listaCursos;
     private List<ServicioAdicional> serviciosAdicionales;
-    private List<Curso> listCursosMatricula;
+
+    private List<Profesor> profesoresAsignados;
+
     private double valorTotalMatricula;
 
+
     private Matricula(Builder builder) {
+
+        this.codigo = builder.codigo;
         this.estudiante = builder.estudiante;
         this.fechaMatricula = builder.fechaMatricula;
         this.duracionContratada = builder.duracionContratada;
         this.descuento = builder.descuento;
-        this.serviciosAdicionales = builder.serviciosAdicionales;
 
-        calcularValorMatricula() ;
-    }
+        this.listaCursos =
+                new ArrayList<>(builder.listaCursos);
 
+        this.serviciosAdicionales =
+                new ArrayList<>(builder.serviciosAdicionales);
 
-    /**
-     * Agregar curso a matricula
-     * @param curso
-     */
+        this.profesoresAsignados =
+                new ArrayList<>(builder.profesoresAsignados);
 
-    public void agregarCurso(Curso curso) {
-        listCursosMatricula.add(curso);
-        calcularValorMatricula() ;
-    }
-
-    public void eliminarCurso(Curso curso) {
-        listCursosMatricula.remove(curso);
-        calcularValorMatricula() ;
-    }
-
-
-    /**
-     * Agragar servicio a la lista de servicios de la matricula
-     * @param servicio
-     */
-
-    public void agregarServicio(ServicioAdicional servicio) {
-        serviciosAdicionales.add(servicio);
-        calcularValorMatricula() ;
-    }
-
-
-    public void eliminarServicio(ServicioAdicional servicio) {
-        serviciosAdicionales.remove(servicio);
-        calcularValorMatricula() ;
+        calcularValorMatricula();
     }
 
     /**
-     * Medoto para calcular valor matricula
+     * Metodo ppara calcular valor total de matricula
      */
 
     private void calcularValorMatricula() {
 
-        double valorCurso = 0;
+        double valorCursos = 0;
 
-        for (Curso curso : listCursosMatricula) {
-            valorCurso += curso.getValorMensual();
+        for (Curso curso : listaCursos) {
+
+            valorCursos +=
+                    curso.getValorMensual();
         }
 
-        valorCurso = valorCurso * duracionContratada;
+        valorCursos =
+                valorCursos * duracionContratada;
+
 
         double valorServicios = 0;
 
-        for (ServicioAdicional servicio : serviciosAdicionales) {
-            valorServicios += servicio.getPrecio();
+        for (ServicioAdicional servicio :
+                serviciosAdicionales) {
+
+            valorServicios +=
+                    servicio.getPrecio();
         }
 
-        valorTotalMatricula = valorCurso + valorServicios - descuento;
+
+        valorTotalMatricula =
+                valorCursos
+                        + valorServicios
+                        - descuento;
     }
+
+    /**
+     * Agregar cursos a matricula
+     * @param curso
+     */
+
+    public void agregarCurso(Curso curso) {
+
+        if (curso != null) {
+
+            listaCursos.add(curso);
+
+            calcularValorMatricula();
+        }
+    }
+
+
+    public void eliminarCurso(Curso curso) {
+
+        if (curso != null) {
+
+            listaCursos.remove(curso);
+
+            calcularValorMatricula();
+        }
+    }
+
+
+    /**
+     * Agragar servicio a matricula
+     * @param servicio
+     */
+
+    public void agregarServicio(
+            ServicioAdicional servicio) {
+
+        if (servicio != null) {
+
+            serviciosAdicionales.add(servicio);
+
+            calcularValorMatricula();
+        }
+    }
+
+
+    public void eliminarServicio(
+            ServicioAdicional servicio) {
+
+        if (servicio != null) {
+
+            serviciosAdicionales.remove(servicio);
+
+            calcularValorMatricula();
+        }
+    }
+
+
+    /**
+     * Asignar profesor a matricula
+     * @param profesor
+     */
+
+    public void asignarProfesor(
+            Profesor profesor) {
+
+        if (profesor != null) {
+
+            profesoresAsignados.add(profesor);
+        }
+    }
+
+
+    public void eliminarProfesor(
+            Profesor profesor) {
+
+        if (profesor != null) {
+
+            profesoresAsignados.remove(profesor);
+        }
+    }
+
+
+
+
+
 
 
     public static class Builder {
 
-        private Estudiante estudiante;
-        private Curso curso;
-        private LocalDate fechaMatricula = LocalDate.now();
-        private int duracionContratada;
-        private double descuento;
-        private List<ServicioAdicional> serviciosAdicionales = new ArrayList<>();
+        private String codigo;
 
-        public Builder estudiante(Estudiante estudiante) {
-            this.estudiante = estudiante;
+        private Estudiante estudiante;
+
+        private LocalDate fechaMatricula =
+                LocalDate.now();
+
+        private int duracionContratada;
+
+        private double descuento;
+
+        private List<Curso> listaCursos =
+                new ArrayList<>();
+
+        private List<ServicioAdicional>
+                serviciosAdicionales =
+                new ArrayList<>();
+
+        private List<Profesor>
+                profesoresAsignados =
+                new ArrayList<>();
+
+
+        public Builder codigo(String codigo) {
+
+            this.codigo = codigo;
+
             return this;
         }
+
+
+        public Builder estudiante(
+                Estudiante estudiante) {
+
+            this.estudiante = estudiante;
+
+            return this;
+        }
+
+
+        public Builder fechaMatricula(
+                LocalDate fechaMatricula) {
+
+            this.fechaMatricula =
+                    fechaMatricula;
+
+            return this;
+        }
+
+
+        public Builder duracionContratada(
+                int duracionContratada) {
+
+            this.duracionContratada =
+                    duracionContratada;
+
+            return this;
+        }
+
+
+        public Builder descuento(
+                double descuento) {
+
+            this.descuento =
+                    descuento;
+
+            return this;
+        }
+
 
         public Builder curso(Curso curso) {
-            this.curso = curso;
+
+            if (curso != null) {
+
+                this.listaCursos.add(curso);
+            }
+
             return this;
         }
 
-        public Builder fechaMatricula(LocalDate fechaMatricula) {
-            this.fechaMatricula = fechaMatricula;
+
+        public Builder cursos(
+                List<Curso> cursos) {
+
+            if (cursos != null) {
+
+                this.listaCursos =
+                        new ArrayList<>(cursos);
+            }
+
             return this;
         }
 
-        public Builder duracionContratada(int duracionContratada) {
-            this.duracionContratada = duracionContratada;
+
+        public Builder servicioAdicional(
+                ServicioAdicional servicio) {
+
+            if (servicio != null) {
+
+                this.serviciosAdicionales
+                        .add(servicio);
+            }
+
             return this;
         }
 
-        public Builder descuento(double descuento) {
-            this.descuento = descuento;
+
+        public Builder servicios(
+                List<ServicioAdicional> servicios) {
+
+            if (servicios != null) {
+
+                this.serviciosAdicionales =
+                        new ArrayList<>(servicios);
+            }
+
             return this;
         }
 
-        public Builder servicioAdicional(ServicioAdicional servicio) {
-            this.serviciosAdicionales.add(servicio);
+
+        public Builder profesor(
+                Profesor profesor) {
+
+            if (profesor != null) {
+
+                this.profesoresAsignados
+                        .add(profesor);
+            }
+
             return this;
         }
+
+
+        public Builder profesores(
+                List<Profesor> profesores) {
+
+            if (profesores != null) {
+
+                this.profesoresAsignados =
+                        new ArrayList<>(profesores);
+            }
+
+            return this;
+        }
+
 
         public Matricula build() {
+
             return new Matricula(this);
         }
     }
 
-
-
+    public String getCodigo() {
+        return codigo;
+    }
 
     public Estudiante getEstudiante() {
         return estudiante;
@@ -148,11 +334,58 @@ public class Matricula {
         return descuento;
     }
 
-    public List<ServicioAdicional> getServiciosAdicionales() {
+    public List<Curso> getListaCursos() {
+        return listaCursos;
+    }
+
+    public List<ServicioAdicional>
+    getServiciosAdicionales() {
+
         return serviciosAdicionales;
+    }
+
+    public List<Profesor> getProfesoresAsignados() {
+        return profesoresAsignados;
     }
 
     public double getValorTotal() {
         return valorTotalMatricula;
+    }
+
+
+
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setEstudiante(
+            Estudiante estudiante) {
+
+        this.estudiante = estudiante;
+    }
+
+    public void setFechaMatricula(
+            LocalDate fechaMatricula) {
+
+        this.fechaMatricula =
+                fechaMatricula;
+    }
+
+    public void setDuracionContratada(
+            int duracionContratada) {
+
+        this.duracionContratada =
+                duracionContratada;
+
+        calcularValorMatricula();
+    }
+
+    public void setDescuento(
+            double descuento) {
+
+        this.descuento = descuento;
+
+        calcularValorMatricula();
     }
 }

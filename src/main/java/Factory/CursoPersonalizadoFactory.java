@@ -1,11 +1,16 @@
 package Factory;
 
-import Model.*;
+import Model.Academia;
+import Model.Curso;
+import Model.CursoPersonalizado;
+import Model.Estado;
+import Model.Nivel;
+import Model.Profesor;
 
-public class CursoPersonalizadoFactory extends CursoFactory {
+public class CursoPersonalizadoFactory
+        extends CursoFactory {
 
-    Academia academia = Academia.getInstance("Lenguaje Cafetero", "123", "Fuadadores" );
-
+    private Academia academia;
 
     private String codigo;
     private String nombre;
@@ -33,6 +38,12 @@ public class CursoPersonalizadoFactory extends CursoFactory {
             String objetivosEstudiante,
             Profesor profesorAsignado) {
 
+        this.academia = Academia.getInstance(
+                "Lenguaje Cafetero",
+                "123",
+                "Fuadadores"
+        );
+
         this.codigo = codigo;
         this.nombre = nombre;
         this.idioma = idioma;
@@ -44,28 +55,31 @@ public class CursoPersonalizadoFactory extends CursoFactory {
         this.cantidadSesiones = cantidadSesiones;
         this.nivelReferencia = nivelReferencia;
         this.objetivosEstudiante = objetivosEstudiante;
+        this.profesorAsignado = profesorAsignado;
     }
 
     @Override
     public Curso crearCurso() {
 
-        CursoPersonalizado curso = new CursoPersonalizado.Builder()
-                .codigo(codigo)
-                .nombre(nombre)
-                .idioma(idioma)
-                .descripcion(descripcion)
-                .duracionMeses(duracionMeses)
-                .valorMensual(valorMensual)
-                .estado(estado)
-                .cantidadSesiones(cantidadSesiones)
-                .nivelReferencia(nivelReferencia)
-                .objetivosEstudiante(objetivosEstudiante)
-                .profesorAsignado(profesorAsignado)
-                .build();
+        CursoPersonalizado curso =
+                new CursoPersonalizado.Builder()
+                        .codigo(codigo)
+                        .nombre(nombre)
+                        .idioma(idioma)
+                        .descripcion(descripcion)
+                        .duracionMeses(duracionMeses)
+                        .valorMensual(valorMensual)
+                        .estado(estado)
+                        .cantidadSesiones(cantidadSesiones)
+                        .nivelReferencia(nivelReferencia)
+                        .objetivosEstudiante(
+                                objetivosEstudiante)
+                        .profesorAsignado(
+                                profesorAsignado)
+                        .build();
 
-       academia.agregarCurso(curso);
+        academia.agregarCurso(curso);
 
         return curso;
     }
 }
-

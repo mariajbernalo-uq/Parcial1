@@ -339,18 +339,69 @@ public class Academia {
     }
 
 
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
+    public String getNit() {
+        return nit;
+    }
 
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
 
+    public String getTelefono() {
+        return telefono;
+    }
 
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
+    public List<Profesor> getListProfesores() {
+        return listProfesores;
+    }
 
+    public void setListProfesores(List<Profesor> listProfesores) {
+        this.listProfesores = listProfesores;
+    }
 
+    public List<Estudiante> getListEstudiantes() {
+        return listEstudiantes;
+    }
 
+    public void setListEstudiantes(List<Estudiante> listEstudiantes) {
+        this.listEstudiantes = listEstudiantes;
+    }
 
+    public List<Matricula> getListMatriculas() {
+        return listMatriculas;
+    }
 
+    public void setListMatriculas(List<Matricula> listMatriculas) {
+        this.listMatriculas = listMatriculas;
+    }
 
+    public List<Curso> getListCursos() {
+        return listCursos;
+    }
+
+    public void setListCursos(List<Curso> listCursos) {
+        this.listCursos = listCursos;
+    }
+
+    public static Academia getInstancia() {
+        return instancia;
+    }
+
+    public static void setInstancia(Academia instancia) {
+        Academia.instancia = instancia;
+    }
 }
 
 
