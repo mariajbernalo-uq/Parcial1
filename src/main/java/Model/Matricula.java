@@ -11,16 +11,15 @@ import java.util.List;
 public class Matricula {
 
     private Estudiante estudiante;
-    private Curso curso;
     private LocalDate fechaMatricula;
     private int duracionContratada;
     private double descuento;
     private List<ServicioAdicional> serviciosAdicionales;
+    private List<Curso> listCursosMatricula;
     private double valorTotalMatricula;
 
     private Matricula(Builder builder) {
         this.estudiante = builder.estudiante;
-        this.curso = builder.curso;
         this.fechaMatricula = builder.fechaMatricula;
         this.duracionContratada = builder.duracionContratada;
         this.descuento = builder.descuento;
@@ -30,15 +29,32 @@ public class Matricula {
     }
 
 
+    /**
+     * Agregar curso a matricula
+     * @param curso
+     */
 
-    // Agregar servicio adicional
+    public void agregarCurso(Curso curso) {
+        listCursosMatricula.add(curso);
+        calcularValorMatricula() ;
+    }
+
+    public void eliminarCurso(Curso curso) {
+        listCursosMatricula.remove(curso);
+        calcularValorMatricula() ;
+    }
+
+
+    /**
+     * Agragar servicio a la lista de servicios de la matricula
+     * @param servicio
+     */
 
     public void agregarServicio(ServicioAdicional servicio) {
         serviciosAdicionales.add(servicio);
         calcularValorMatricula() ;
     }
 
-    // Eliminar servicio adicional
 
     public void eliminarServicio(ServicioAdicional servicio) {
         serviciosAdicionales.remove(servicio);
@@ -51,8 +67,13 @@ public class Matricula {
 
     private void calcularValorMatricula() {
 
-        double valorCurso =
-                curso.getValorMensual() * duracionContratada;
+        double valorCurso = 0;
+
+        for (Curso curso : listCursosMatricula) {
+            valorCurso += curso.getValorMensual();
+        }
+
+        valorCurso = valorCurso * duracionContratada;
 
         double valorServicios = 0;
 
@@ -113,10 +134,6 @@ public class Matricula {
 
     public Estudiante getEstudiante() {
         return estudiante;
-    }
-
-    public Curso getCurso() {
-        return curso;
     }
 
     public LocalDate getFechaMatricula() {

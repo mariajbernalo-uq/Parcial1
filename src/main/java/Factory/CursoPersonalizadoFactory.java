@@ -18,6 +18,7 @@ public class CursoPersonalizadoFactory extends CursoFactory {
     private int cantidadSesiones;
     private Nivel nivelReferencia;
     private String objetivosEstudiante;
+    private Profesor profesorAsignado;
 
     public CursoPersonalizadoFactory(
             String codigo,
@@ -29,7 +30,8 @@ public class CursoPersonalizadoFactory extends CursoFactory {
             Estado estado,
             int cantidadSesiones,
             Nivel nivelReferencia,
-            String objetivosEstudiante) {
+            String objetivosEstudiante,
+            Profesor profesorAsignado) {
 
         this.codigo = codigo;
         this.nombre = nombre;
@@ -58,6 +60,7 @@ public class CursoPersonalizadoFactory extends CursoFactory {
                 .cantidadSesiones(cantidadSesiones)
                 .nivelReferencia(nivelReferencia)
                 .objetivosEstudiante(objetivosEstudiante)
+                .profesorAsignado(profesorAsignado)
                 .build();
 
        academia.agregarCurso(curso);
