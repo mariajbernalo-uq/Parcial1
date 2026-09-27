@@ -147,6 +147,7 @@ public class EstudianteViewController {
 
         if (exito) {
             actualizarTabla();
+            tablaEstudiantes.refresh();
             limpiar();
             mostrarMensaje("Estudiante actualizado correctamente.");
         } else {

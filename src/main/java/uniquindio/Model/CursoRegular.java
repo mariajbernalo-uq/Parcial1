@@ -1,4 +1,26 @@
 package uniquindio.Model;
 
-public class CursoRegular {
+public class CursoRegular extends Curso {
+
+    public CursoRegular(String codigo,
+                        String nombre,
+                        Idioma idioma,
+                        String descripcion,
+                        int duracionMeses,
+                        double valorMensual,
+                        Estado estado) {
+        super(codigo, nombre, idioma, descripcion,
+                duracionMeses, valorMensual, estado);
+    }
+
+    @Override
+    public double calcularValor(int duracionContratada) {
+        if (duracionContratada <= 0) {
+            throw new IllegalArgumentException(
+                    "Los meses contratados deben ser mayores que cero."
+            );
+        }
+
+        return getValorMensual() * duracionContratada;
+    }
 }

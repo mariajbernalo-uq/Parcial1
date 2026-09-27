@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="uniquindio.ViewController.CursoViewController"
+      spacing="15">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Cursos"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <!-- Datos comunes del curso -->
+    <GridPane hgap="12" vgap="12">
+        <Label text="Código:"
+               GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="txtCodigo"
+                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Nombre:"
+               GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <TextField fx:id="txtNombre"
+                   GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+        <Label text="Tipo:"
+               GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="cmbTipoCurso"
+                  prefWidth="180"
+                  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Idioma:"
+               GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="cmbIdioma"
+                  prefWidth="180"
+                  GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+        <Label text="Duración (meses):"
+               GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="txtDuracionMeses"
+                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Valor mensual:"
+               GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <TextField fx:id="txtValorMensual"
+                   GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+        <Label text="Estado:"
+               GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="cmbEstado"
+                  prefWidth="180"
+                  GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Descripción:"
+               GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <TextField fx:id="txtDescripcion"
+                   GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+    </GridPane>
+
+    <!-- Solo aparece para CursoPersonalizado -->
+    <VBox fx:id="panelPersonalizado"
+          spacing="12"
+          visible="false"
+          managed="false">
+
+        <Label text="Datos del curso personalizado"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="12" vgap="12">
+            <Label text="Cantidad de sesiones:"
+                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="txtCantidadSesiones"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Nivel de referencia:"
+                   GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="cmbNivelReferencia"
+                      prefWidth="180"
+                      GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+            <Label text="Objetivo del estudiante:"
+                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="txtObjetivoEstudiante"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+    </VBox>
+
+    <!-- Selección de beneficios existentes -->
+    <VBox spacing="8">
+        <Label text="Beneficios del curso"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <MenuButton fx:id="menuBeneficios"
+                    text="Seleccionar beneficios"
+                    prefWidth="240"/>
+    </VBox>
+
+    <!-- Creación de un beneficio nuevo -->
+    <VBox spacing="8">
+        <Label text="Crear beneficio"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <HBox spacing="10">
+            <TextField fx:id="txtCodigoBeneficio"
+                       promptText="Código"
+                       prefWidth="110"/>
+
+            <TextField fx:id="txtNombreBeneficio"
+                       promptText="Nombre"
+                       prefWidth="200"/>
+
+            <TextField fx:id="txtDescripcionBeneficio"
+                       promptText="Descripción"
+                       prefWidth="300"/>
+
+            <Button text="Crear beneficio"
+                    onAction="#crearBeneficio"/>
+        </HBox>
+    </VBox>
+
+    <!-- Acciones del curso -->
+    <HBox spacing="10">
+        <Button text="Registrar" onAction="#registrar"/>
+        <Button text="Actualizar" onAction="#actualizar"/>
+        <Button text="Eliminar" onAction="#eliminar"/>
+        <Button text="Limpiar" onAction="#limpiar"/>
+    </HBox>
+
+    <!-- Búsqueda -->
+    <HBox spacing="10">
+        <TextField fx:id="txtBuscarCodigo"
+                   promptText="Código del curso"
+                   prefWidth="220"/>
+        <Button text="Buscar" onAction="#buscar"/>
+        <Button text="Mostrar todos" onAction="#mostrarTodos"/>
+    </HBox>
+
+    <!-- Cursos registrados -->
+    <TableView fx:id="tablaCursos" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colCodigo"
+                         text="Código" prefWidth="90"/>
+            <TableColumn fx:id="colNombre"
+                         text="Nombre" prefWidth="140"/>
+            <TableColumn fx:id="colTipo"
+                         text="Tipo" prefWidth="120"/>
+            <TableColumn fx:id="colIdioma"
+                         text="Idioma" prefWidth="100"/>
+            <TableColumn fx:id="colDuracion"
+                         text="Meses" prefWidth="70"/>
+            <TableColumn fx:id="colValorMensual"
+                         text="Valor mensual" prefWidth="115"/>
+            <TableColumn fx:id="colEstado"
+                         text="Estado" prefWidth="100"/>
+            <TableColumn fx:id="colSesiones"
+                         text="Sesiones" prefWidth="80"/>
+            <TableColumn fx:id="colNivel"
+                         text="Nivel" prefWidth="75"/>
+            <TableColumn fx:id="colObjetivo"
+                         text="Objetivo" prefWidth="160"/>
+            <TableColumn fx:id="colBeneficios"
+                         text="Beneficios" prefWidth="260"/>
+        </columns>
+    </TableView>
+
+</VBox>

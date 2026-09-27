@@ -140,7 +140,9 @@ public class ProfesorViewController {
         );
 
         if (exito) {
+            tablaProfesores.getSelectionModel().clearSelection();
             actualizarTabla();
+            tablaProfesores.refresh();
             limpiar();
             mostrarMensaje("Profesor actualizado correctamente.");
         } else {

@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import uniquindio.App;
 import uniquindio.Controller.AcademiaController;
+import uniquindio.Controller.CursoController;
 import uniquindio.Controller.EstudianteController;
 import uniquindio.Controller.ProfesorController;
 import uniquindio.Model.Academia;
@@ -34,6 +35,10 @@ public class AcademiaViewController {
     @FXML
     private void mostrarVistaCursos() {
         cargarVista("Cursos.fxml");
+    }
+    @FXML
+    private void mostrarVistaMatricula() {
+        cargarVista("Matricula.fxml");
     }
 
     @FXML
@@ -65,6 +70,14 @@ public class AcademiaViewController {
 
                     controller.setProfesorController(
                             new ProfesorController(academia)
+                    );
+                }
+                case "Cursos.fxml" -> {
+                    CursoViewController controller =
+                            loader.getController();
+
+                    controller.setCursoController(
+                            new CursoController(academia)
                     );
                 }
             }

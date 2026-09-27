@@ -12,9 +12,12 @@ public class Academia {
         private String correo;
       private String paginaWeb;
 
+
         private List<Profesor> listProfesores;
         private List<Estudiante> listEstudiantes;
         private List<Matricula> listMatriculas;
+        private List<Curso> listCursos;
+        private List<Beneficio> listBeneficios;
 
         private Academia(String nombre, String nit, String telefono, String direccion, String correo, String paginaWeb){
             this.nombre = nombre;
@@ -27,6 +30,8 @@ public class Academia {
             listProfesores =new ArrayList<>();
             listEstudiantes = new ArrayList<>();
             listMatriculas = new ArrayList<>();
+            listCursos = new ArrayList<>();
+            listBeneficios = new ArrayList<>();
 
         }
     public static Academia getInstancia(
@@ -222,4 +227,234 @@ public class Academia {
                 profesor.getDocumentoDeIdentidad().equals(documento)
         );
     }
+    // --------------------------------------------------
+// CRUD CURSOS
+// --------------------------------------------------
+
+    public Curso buscarCurso(String codigo) {
+        for (Curso curso : listCursos) {
+            if (curso.getCodigo().equals(codigo)) {
+                return curso;
+            }
+        }
+        return null;
+    }
+
+    public boolean crearCursoRegular(
+            String codigo,
+            String nombre,
+            Idioma idioma,
+            String descripcion,
+            int duracionMeses,
+            double valorMensual,
+            List<Beneficio> beneficiosSeleccionados
+    ) {
+        if (buscarCurso(codigo) != null) {
+            return false;
+        }
+
+        Curso curso = FabricaCursos.crearCursoRegular(
+                codigo,
+                nombre,
+                idioma,
+                descripcion,
+                duracionMeses,
+                valorMensual
+        );
+        for (Beneficio beneficio : beneficiosSeleccionados) {
+            curso.agregarBeneficio(beneficio);
+        }
+
+        listCursos.add(curso);
+        return true;
+    }
+
+    public boolean crearCursoIntensivo(
+            String codigo,
+            String nombre,
+            Idioma idioma,
+            String descripcion,
+            int duracionMeses,
+            double valorMensual,
+            List<Beneficio> beneficiosSeleccionados
+    ) {
+        if (buscarCurso(codigo) != null) {
+            return false;
+        }
+
+        Curso curso = FabricaCursos.crearCursoIntensivo(
+                codigo,
+                nombre,
+                idioma,
+                descripcion,
+                duracionMeses,
+                valorMensual
+        );
+        for (Beneficio beneficio : beneficiosSeleccionados) {
+            curso.agregarBeneficio(beneficio);
+        }
+        listCursos.add(curso);
+        return true;
+    }
+
+    public boolean crearCursoPersonalizado(
+            String codigo,
+            String nombre,
+            Idioma idioma,
+            String descripcion,
+            int duracionMeses,
+            double valorMensual,
+            int cantidadSesiones,
+            Nivel nivelReferencia,
+            String objetivoEstudiante,
+            List<Beneficio> beneficiosSeleccionados
+
+    ) {
+        if (buscarCurso(codigo) != null) {
+            return false;
+        }
+
+        CursoPersonalizado curso = FabricaCursos.crearCursoPersonalizado(
+                codigo,
+                nombre,
+                idioma,
+                descripcion,
+                duracionMeses,
+                valorMensual,
+                cantidadSesiones,
+                nivelReferencia,
+                objetivoEstudiante
+        );
+        for (Beneficio beneficio : beneficiosSeleccionados) {
+                curso.agregarBeneficio(beneficio);
+            }
+        listCursos.add(curso);
+        return true;
+    }
+
+    public boolean actualizarCurso(
+            String codigo,
+            String nombre,
+            Idioma idioma,
+            String descripcion,
+            int duracionMeses,
+            double valorMensual,
+            Estado estado
+    ) {
+        Curso curso = buscarCurso(codigo);
+
+        if (curso == null) {
+            return false;
+        }
+
+        curso.setNombre(nombre);
+        curso.setIdioma(idioma);
+        curso.setDescripcion(descripcion);
+        curso.setDuracionMeses(duracionMeses);
+        curso.setValorMensual(valorMensual);
+        curso.setEstado(estado);
+
+        return true;
+    }
+
+    public boolean actualizarDatosCursoPersonalizado(
+            String codigo,
+            int cantidadSesiones,
+            Nivel nivelReferencia,
+            String objetivoEstudiante
+    ) {
+        Curso curso = buscarCurso(codigo);
+
+        if (!(curso instanceof CursoPersonalizado personalizado)) {
+            return false;
+        }
+
+        personalizado.setCantidadSesiones(cantidadSesiones);
+        personalizado.setNivelReferencia(nivelReferencia);
+        personalizado.setObjetivoEstudiante(objetivoEstudiante);
+
+        return true;
+    }
+
+
+    public boolean eliminarCurso(String codigo) {
+        return listCursos.removeIf(
+                curso -> curso.getCodigo().equals(codigo)
+        );
+    }
+
+    public List<Curso> getListCursos() {
+        return List.copyOf(listCursos);
+    }
+
+    //Beneficios
+    public List<Beneficio> getListBeneficios() {
+        return List.copyOf(listBeneficios);
+    }
+
+    public Beneficio buscarBeneficio(String codigo) {
+        for (Beneficio beneficio : listBeneficios) {
+            if (beneficio.getCodigo().equals(codigo)) {
+                return beneficio;
+            }
+        }
+        return null;
+    }
+
+    public boolean crearBeneficio(
+            String codigo,
+            String nombre,
+            String descripcion
+    ) {
+        if (codigo == null || codigo.isBlank()
+                || nombre == null || nombre.isBlank()
+                || buscarBeneficio(codigo.trim()) != null) {
+            return false;
+        }
+
+        listBeneficios.add(new Beneficio(
+                codigo.trim(),
+                nombre.trim(),
+                descripcion == null ? "" : descripcion.trim()
+        ));
+
+        return true;
+    }
+    public boolean actualizarBeneficiosCurso(
+            String codigoCurso,
+            List<Beneficio> beneficiosSeleccionados
+    ) {
+        Curso curso = buscarCurso(codigoCurso);
+
+        if (curso == null || beneficiosSeleccionados == null) {
+            return false;
+        }
+        for (Beneficio beneficio : beneficiosSeleccionados) {
+            if (beneficio == null
+                    || buscarBeneficio(beneficio.getCodigo()) == null) {
+                return false;
+            }
+        }
+
+        List<Beneficio> beneficiosAnteriores =
+                new ArrayList<>(curso.getListaBeneficios());
+
+        for (Beneficio beneficio : beneficiosAnteriores) {
+            curso.eliminarBeneficio(beneficio);
+        }
+
+        for (Beneficio beneficio : beneficiosSeleccionados) {
+            // Usar el objeto que está registrado en Academia.
+            Beneficio registrado =
+                    buscarBeneficio(beneficio.getCodigo());
+
+            curso.agregarBeneficio(registrado);
+        }
+
+        return true;
+    }
+
+
+    //Matriculas
+
 }
