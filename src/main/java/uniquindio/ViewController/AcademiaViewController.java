@@ -4,10 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import uniquindio.App;
-import uniquindio.Controller.AcademiaController;
-import uniquindio.Controller.CursoController;
-import uniquindio.Controller.EstudianteController;
-import uniquindio.Controller.ProfesorController;
+import uniquindio.Controller.*;
 import uniquindio.Model.Academia;
 
 import java.io.IOException;
@@ -43,7 +40,7 @@ public class AcademiaViewController {
 
     @FXML
     private void mostrarVistaFacturacion() {
-        cargarVista("Facturacion.fxml");
+        cargarVista("Reportes.fxml");
     }
 
     private void cargarVista(String nombreArchivo) {
@@ -80,6 +77,14 @@ public class AcademiaViewController {
                             new CursoController(academia)
                     );
                 }
+                case "Reportes.fxml" -> {
+                    ReportesViewController controller =
+                            loader.getController();
+                    controller.setReporteController(
+                            new ReportesController(academia)
+                    );
+                }
+
             }
 
             contenedorContenido.getChildren().setAll(vista);

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="uniquindio.ViewController.ReportesViewController"
+            fitToWidth="true">
+
+    <content>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+
+            <Label text="Reportes y facturación"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+            <!-- Resumen general -->
+            <VBox spacing="12">
+                <Label text="Resumen general"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                <GridPane hgap="30" vgap="12">
+                    <Label text="Estudiantes inscritos:"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="lblTotalEstudiantes" text="0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Profesores registrados:"
+                           GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                    <Label fx:id="lblTotalProfesores" text="0"
+                           GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                    <Label text="Cursos registrados:"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="lblTotalCursos" text="0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="Matrículas registradas:"
+                           GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <Label fx:id="lblTotalMatriculas" text="0"
+                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                </GridPane>
+
+                <Button text="Actualizar resumen"
+                        onAction="#mostrarReporteGeneral"/>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Consulta mensual -->
+            <VBox spacing="12">
+                <Label text="Reporte mensual de matrículas"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="Mes:"/>
+                    <ComboBox fx:id="cmbMes"
+                              promptText="Selecciona un mes"
+                              prefWidth="180"/>
+
+                    <Label text="Año:"/>
+                    <ComboBox fx:id="cmbAnio"
+                              promptText="Selecciona un año"
+                              prefWidth="120"/>
+
+                    <Button text="Consultar mes"
+                            onAction="#mostrarReporteMensual"/>
+                </HBox>
+
+                <GridPane hgap="20" vgap="12">
+                    <Label text="Matrículas del mes:"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="lblMatriculasMes" text="0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Valor total de matrículas:"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="lblValorMatriculasMes" text="0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                </GridPane>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Consulta por fechas -->
+            <VBox spacing="12">
+                <Label text="Reporte por rango de fechas"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="Desde:"/>
+                    <DatePicker fx:id="fechaInicial"/>
+
+                    <Label text="Hasta:"/>
+                    <DatePicker fx:id="fechaFinal"/>
+
+                    <Button text="Consultar período"
+                            onAction="#mostrarReporteEntreFechas"/>
+                </HBox>
+
+                <GridPane hgap="20" vgap="12">
+                    <Label text="Matrículas en el período:"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="lblMatriculasPeriodo" text="0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Valor total de matrículas:"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="lblValorMatriculasPeriodo" text="0"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                </GridPane>
+            </VBox>
+
+        </VBox>
+    </content>
+</ScrollPane>

@@ -1,6 +1,7 @@
 package uniquindio.Model;
 import javax.swing.*;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 public class Academia {
@@ -456,5 +457,121 @@ public class Academia {
 
 
     //Matriculas
+
+// -------------------- REPORTES GENERALES --------------------
+
+    // -------------------- REPORTES GENERALES --------------------
+
+    public int contarEstudiantes() {
+        return listEstudiantes.size();
+    }
+
+    public int contarProfesores() {
+        return listProfesores.size();
+    }
+
+    public int contarCursos() {
+        return listCursos.size();
+    }
+
+    public int contarMatriculas() {
+        return listMatriculas.size();
+    }
+
+// -------------------- REPORTES POR PERÍODO --------------------
+
+    public int contarMatriculasEntre(
+            LocalDate fechaInicial,
+            LocalDate fechaFinal
+    ) {
+        validarPeriodo(fechaInicial, fechaFinal);
+
+        int cantidad = 0;
+
+        for (Matricula matricula : listMatriculas) {
+            if (estaEnPeriodo(
+                    matricula.getFechaMatricula(),
+                    fechaInicial,
+                    fechaFinal
+            )) {
+                cantidad++;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public double calcularValorMatriculasEntre(
+            LocalDate fechaInicial,
+            LocalDate fechaFinal
+    ) {
+        validarPeriodo(fechaInicial, fechaFinal);
+
+        double total = 0;
+
+        for (Matricula matricula : listMatriculas) {
+            if (estaEnPeriodo(
+                    matricula.getFechaMatricula(),
+                    fechaInicial,
+                    fechaFinal
+            )) {
+                total += matricula.calcularTotalMatricula();
+            }
+        }
+
+        return total;
+    }
+
+    public double calcularValorMatriculasDelMes(
+            int anio,
+            int mes
+    ) {
+        YearMonth periodo = YearMonth.of(anio, mes);
+
+        return calcularValorMatriculasEntre(
+                periodo.atDay(1),
+                periodo.atEndOfMonth()
+        );
+    }
+
+    public int contarMatriculasDelMes(
+            int anio,
+            int mes
+    ) {
+        YearMonth periodo = YearMonth.of(anio, mes);
+
+        return contarMatriculasEntre(
+                periodo.atDay(1),
+                periodo.atEndOfMonth()
+        );
+    }
+
+    private boolean estaEnPeriodo(
+            LocalDate fecha,
+            LocalDate fechaInicial,
+            LocalDate fechaFinal
+    ) {
+        return fecha != null
+                && !fecha.isBefore(fechaInicial)
+                && !fecha.isAfter(fechaFinal);
+    }
+
+    private void validarPeriodo(
+            LocalDate fechaInicial,
+            LocalDate fechaFinal
+    ) {
+        if (fechaInicial == null || fechaFinal == null) {
+            throw new IllegalArgumentException(
+                    "Selecciona ambas fechas."
+            );
+        }
+
+        if (fechaInicial.isAfter(fechaFinal)) {
+            throw new IllegalArgumentException(
+                    "La fecha inicial no puede ser posterior a la final."
+            );
+        }
+    }
+
 
 }

@@ -21,7 +21,7 @@
             <Button text="Profesores" maxWidth="Infinity" onAction="#mostrarVistaProfesores"/>
             <Button text="Cursos" maxWidth="Infinity" onAction="#mostrarVistaCursos"/>
             <Button text="Matricula" maxWidth="Infinity" onAction="#mostrarVistaMatricula"/>
-            <Button text="Facturacion" maxWidth="Infinity" onAction="#mostrarVistaFacturacion"/>
+            <Button text="Reportes" maxWidth="Infinity" onAction="#mostrarVistaReportes"/>
         </VBox>
     </left>
     <center>
